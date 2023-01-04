@@ -25,48 +25,42 @@ namespace ChocoAutoInstall
                 string answer = Console.ReadLine();
                 answers.Add(Convert.ChangeType(answer, question.ExpectedType));
             }
-            
-            if(answers[0].ToString().Length > 0)
+
+            if (answers[0].ToString().Length > 0)
             {
-                if(!File.Exists(answers[0].ToString()))
+                if (!File.Exists(answers[0].ToString()))
                     Console.WriteLine("File not found. Using default choco_args.txt");
                 else
                     chocoPath = answers[0].ToString();
             }
             else
                 Console.WriteLine("Using default choco_args.txt");
-
-            RunChoco();
-        }
-        
-        public static List<string> ReadChocoArgs(string path)
-        {
+            
             List<string> chocoLines = new List<string>();
-            var lines = File.ReadAllLines(path);
-
-            Console.WriteLine($"\nThe following ({lines.Length}) packages will be installed:\n");
-
+            string[] lines = File.ReadAllLines(chocoPath);
+            Console.WriteLine("\n-- List of Packages --\n");
             foreach (var line in lines)
             {
                 chocoLines.Add(line);
                 Console.WriteLine(line);
             }
-            Console.WriteLine();
-            return chocoLines;
+            Console.Write($"\nInstall ({lines.Length}) packages? (y/n): ");
+            if (Console.ReadLine().ToLower() == "y")
+                RunChoco(chocoLines);
+            else
+                Environment.Exit(0);
         }
         
-        public static void RunChoco()
+        public static void RunChoco(List<string> chocoPackages)
         {
-            List<string> chocoArguements = ReadChocoArgs(chocoPath);
-            
-            foreach (string arg in chocoArguements)
+            foreach (string package in chocoPackages)
             {
                 var process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "cmd.exe",
-                        Arguments = "/c choco install " + arg
+                        Arguments = "/c choco install " + package
                     }
                 };
                 process.Start();
@@ -78,7 +72,7 @@ namespace ChocoAutoInstall
         public static Question[] questions = 
         {
             new Question { Text = "Path to package list file (empty for default): ", ExpectedType = typeof(string) },
-            //new Question { Text = "Example", ExpectedType = typeof(int) },
+            //new Question { Text = "Example", ExpectedType = typeof(str) },
         };
     }
     
