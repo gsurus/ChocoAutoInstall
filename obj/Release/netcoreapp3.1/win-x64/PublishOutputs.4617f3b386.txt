@@ -1,0 +1,2 @@
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Release\netcoreapp3.1\publish\win-x64\ChocoAutoInstall.pdb
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Release\netcoreapp3.1\publish\win-x64\ChocoAutoInstall.exe

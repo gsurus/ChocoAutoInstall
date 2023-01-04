@@ -1,0 +1,14 @@
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Debug\netcoreapp3.1\ChocoAutoInstall.exe
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Debug\netcoreapp3.1\ChocoAutoInstall.deps.json
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Debug\netcoreapp3.1\ChocoAutoInstall.runtimeconfig.json
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Debug\netcoreapp3.1\ChocoAutoInstall.runtimeconfig.dev.json
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Debug\netcoreapp3.1\ChocoAutoInstall.dll
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\bin\Debug\netcoreapp3.1\ChocoAutoInstall.pdb
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.csproj.AssemblyReference.cache
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.GeneratedMSBuildEditorConfig.editorconfig
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.AssemblyInfoInputs.cache
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.AssemblyInfo.cs
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.csproj.CoreCompileInputs.cache
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.dll
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.pdb
+E:\Visual Studio 2017\Projects\ChocoAutoInstall\obj\Debug\netcoreapp3.1\ChocoAutoInstall.genruntimeconfig.cache
