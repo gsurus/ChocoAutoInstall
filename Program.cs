@@ -60,7 +60,7 @@ namespace ChocoAutoInstall
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "cmd.exe",
-                        Arguments = "/c choco install " + package
+                        Arguments = "/c choco upgrade " + package
                     }
                 };
                 process.Start();
