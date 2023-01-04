@@ -15,6 +15,7 @@ namespace ChocoAutoInstall
             UserInput();
             
         }
+        
         public static void UserInput()
         {
             List<object> answers = new List<object>();
@@ -23,28 +24,44 @@ namespace ChocoAutoInstall
             {
                 Console.Write(question.Text);
                 string answer = Console.ReadLine();
-                answers.Add(Convert.ChangeType(answer, question.ExpectedType));
+                
+                if (question.Name == "PackageList")
+                    PackageList(answer);
+                
+                if (question.Name == "Upgrade")
+                {
+                    if (answer == "y")
+                        RunChoco(new List<string> { "all -y" });
+                    else
+                        continue;
+                }
             }
-
-            if (answers[0].ToString().Length > 0)
+        }
+        
+        public static void PackageList(string answer)
+        {
+            if (answer.Length > 0)
             {
-                if (!File.Exists(answers[0].ToString()))
+                if (!File.Exists(answer.ToString()))
                     Console.WriteLine("File not found. Using default choco_args.txt");
                 else
-                    chocoPath = answers[0].ToString();
+                    chocoPath = answer.ToString();
             }
             else
                 Console.WriteLine("Using default choco_args.txt");
-            
+
             List<string> chocoLines = new List<string>();
             string[] lines = File.ReadAllLines(chocoPath);
             Console.WriteLine("\n-- List of Packages --\n");
+            
             foreach (var line in lines)
             {
                 chocoLines.Add(line);
                 Console.WriteLine(line);
             }
+            
             Console.Write($"\nInstall ({lines.Length}) packages? (y/n): ");
+            
             if (Console.ReadLine().ToLower() == "y")
                 RunChoco(chocoLines);
             else
@@ -65,20 +82,20 @@ namespace ChocoAutoInstall
                 };
                 process.Start();
                 process.WaitForExit();
-
             }
         }
 
         public static Question[] questions = 
         {
-            new Question { Text = "Path to package list file (empty for default): ", ExpectedType = typeof(string) },
-            //new Question { Text = "Example", ExpectedType = typeof(str) },
+            new Question { Text = "Upgrade installed Choco packages not in list? (y/n): ", Name = "Upgrade", ExpectedType = typeof(string) },
+            new Question { Text = "Path to package list file (empty for default): ", Name = "PackageList", ExpectedType = typeof(string) },
         };
     }
     
     public class Question
     {
         public string Text { get; set; }
+        public string Name { get; set; }
         public Type ExpectedType { get; set; }
     }
 }
