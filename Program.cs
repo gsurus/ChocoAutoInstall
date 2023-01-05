@@ -10,10 +10,15 @@ namespace ChocoAutoInstall
     internal class Program
     {
         public static string chocoPath { get; set; } = Path.Combine(Directory.GetCurrentDirectory(), "choco_args.txt");
+        
         static void Main(string[] args)
         {
-            UserInput();
-            
+            List<string> checkChoco = RunCMD(new List<string> { "/c where choco.exe" });
+            if(checkChoco.First().StartsWith("INFO:"))
+                Console.WriteLine("Chocolatey not found. Please install Chocolatey and try again.");
+            else
+                UserInput();
+            Console.ReadLine();
         }
         
         public static void UserInput()
@@ -31,7 +36,7 @@ namespace ChocoAutoInstall
                 if (question.Name == "Upgrade")
                 {
                     if (answer == "y")
-                        RunChoco(new List<string> { "all -y" });
+                        RunCMD(new List<string> { "/c choco upgrade all -y" });
                     else
                         continue;
                 }
@@ -56,33 +61,39 @@ namespace ChocoAutoInstall
             
             foreach (var line in lines)
             {
-                chocoLines.Add(line);
+                chocoLines.Add($"/c choco upgrade {line}");
                 Console.WriteLine(line);
             }
             
             Console.Write($"\nInstall ({lines.Length}) packages? (y/n): ");
             
             if (Console.ReadLine().ToLower() == "y")
-                RunChoco(chocoLines);
+                RunCMD(chocoLines);
             else
                 Environment.Exit(0);
         }
         
-        public static void RunChoco(List<string> chocoPackages)
+        public static List<string> RunCMD(List<string> argument)
         {
-            foreach (string package in chocoPackages)
+            List<string> stdOuts = new List<string>();
+            foreach (string arg in argument)
             {
                 var process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "cmd.exe",
-                        Arguments = "/c choco upgrade " + package
+                        Arguments = arg,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
                     }
                 };
                 process.Start();
+                stdOuts.Add(process.StandardError.ReadToEnd());
                 process.WaitForExit();
             }
+            return stdOuts;
         }
 
         public static Question[] questions = 
